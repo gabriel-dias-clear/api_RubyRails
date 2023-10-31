@@ -1,18 +1,16 @@
 source "https://rubygems.org"
 
-ruby "3.1.3"
+ruby "3.0.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.1"
-gem "pry-rails"
-#gem "rack-cors"
+gem "rails", "~> 7.1.0"
+
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 gem 'rails-i18n'
-gem "standard", group: [:development, :test]
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-gem 'ruby-lsp', '~> 0.12.1'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -27,7 +25,7 @@ gem 'ruby-lsp', '~> 0.12.1'
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -36,18 +34,20 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-gem "rack-cors"
+# gem "rack-cors"
 
-gem 'faker'
-gem 'active_model_serializers'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
+
+  gem "rack-cors"
+  gem 'faker'
+  gem 'active_model_serializers'
+  gem 'foreman'
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
