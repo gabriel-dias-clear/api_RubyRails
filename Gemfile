@@ -15,7 +15,7 @@ gem "puma", ">= 5.0"
 gem 'ruby-lsp', '~> 0.12.1'
 gem 'jwt'
 # Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth.
-
+gem 'versionist'
 gem 'foreman'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
