@@ -1,15 +1,5 @@
 class KindsController < ApplicationController
-  
-  #TOKEN = "secret123"
-
-  # include ActionController::HttpAuthentication::Basic::ControllerMethods
-  # http_basic_authenticate_with name: "jack", password: "secret"
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
-  before_action :authenticate
   before_action :set_kind, only: %i[ show update destroy ]
-
-  
 
   # GET /kinds
   def index
@@ -52,28 +42,16 @@ class KindsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_kind
       if params[:contact_id]
-        @kind = Contact.find(params[:contact_id]).kind
+        @kind = Contact.find(params[:contact_id]).kind_id
         return @kind
       end
+        @kind = Kind.find(params[:id])
+      end
 
-      @kind = Kind.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def kind_params
       params.require(:kind).permit(:description)
-    end
-
-    def authenticate
-      # authenticate_or_request_with_http_digest("Application") do |username|
-      #   USERS[username]
-      # end
-      authenticate_or_request_with_http_token do |token, options|
-        hmac_secret = 'my$ecretK3y'
-        JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
-        # Compare the tokens in a time-constant manner, to mitigate
-        # timing attacks.
-        
-      end
     end
 end
