@@ -1,20 +1,23 @@
 namespace :dev do
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
-    puts "Resetando banco de dados!"
-    %x(rails db:drop db:create db:migrate)
+    puts "Resetando o banco de dados..."
 
-    puts "Cadastrando tipos de contatos"
+    # %x(rails db:drop db:create db:migrate)
 
-    kinds = %w(Amigo comercial conhecido)
+    puts "Cadastrando os tipos de contato..."
+
+    kinds = %w(Amigo Comercial Conhecido)
 
     kinds.each do |kind|
       Kind.create!(
-        description: kind,
+        description: kind
       )
     end
 
-    puts "Tipos de contatos cadastrados com sucesso"
+    puts "Tipos Contato cadastrados com sucesso!"
+
+    ######################
 
     puts "Cadastrando os contatos..."
 
@@ -22,18 +25,20 @@ namespace :dev do
       Contact.create!(
         name: Faker::Name.name,
         email: Faker::Internet.email,
-        birthdate: Faker::Date.between(from: 65.years.ago, to: 18.years.ago),
-        kind: Kind.all.sample,
+        birthdate: Faker::Date.between(65.years.ago, 18.years.ago),
+        kind: Kind.all.sample
       )
     end
 
     puts "Contatos cadastrados com sucesso!"
 
-    puts "Cadastrando os telefone dos contatos..."
+    ######################
+
+    puts "Cadastrando os telefones..."
 
     Contact.all.each do |contact|
       Random.rand(5).times do |i|
-        phone = Phone.create!(number: Faker::PhoneNumber.cell_phone)
+        phone = Phone.create!(number:Faker::PhoneNumber.cell_phone)
         contact.phones << phone
         contact.save!
       end
@@ -41,10 +46,12 @@ namespace :dev do
 
     puts "Telefones cadastrados com sucesso!"
 
-    puts "Cadastrando os endereço dos contatos..."
+    ######################
+
+    puts "Cadastrando os endereços..."
 
     Contact.all.each do |contact|
-      addres = Address.create!(
+      Address.create(
         street: Faker::Address.street_address,
         city: Faker::Address.city,
         contact: contact
